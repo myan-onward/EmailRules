@@ -36,7 +36,7 @@ namespace EmailRules
         {
             // Set the active provider via configuration
             var provider = Configuration.GetValue("Provider", "SqlServer");
-            Console.WriteLine($"Provider = {provider}");
+            // Console.WriteLine($"Provider = {provider}");
 
             // Set TnsAdmin value to directory location of tnsnames.ora and sqlnet.ora files
             OracleConfiguration.TnsAdmin = @"<DIRECTORY LOCATION>";

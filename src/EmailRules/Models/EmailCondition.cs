@@ -10,6 +10,8 @@ namespace EmailRules.Models
         [Required]
         public SpecificCondition Condition { get; set; }
 
+        public SpecificOperator Operator { get; set; }
+
         [Required]
         public string OnThis { get; set; }
 

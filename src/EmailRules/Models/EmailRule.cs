@@ -11,6 +11,10 @@ namespace EmailRules.Models
         [Required]
         public string Name { get; set; }
 
+        public bool Shared { get; set; }
+
+        public bool RequireAllConditions { get; set; }
+
         public ICollection<EmailCondition> Conditions { get; set; } = new List<EmailCondition>();
 
         public ICollection<EmailAction> Actions { get; set; } = new List<EmailAction>();
