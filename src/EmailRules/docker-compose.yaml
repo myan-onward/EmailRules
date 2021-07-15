@@ -1,0 +1,12 @@
+version: '3'
+services:
+  sqlserver:
+    # image: "mcr.microsoft.com/mssql/server:2017-latest" - not Apple M1
+    image: "mcr.microsoft.com/azure-sql-edge:latest"
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "CHANGE_PLZ"
+      # MSSQL_PID: "Express" - applies to SQL Server 2017/2019
+      MSSQL_PID: "Developer"
+    ports:
+        - "1433:1433"
