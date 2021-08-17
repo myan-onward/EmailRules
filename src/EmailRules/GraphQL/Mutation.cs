@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using EmailRules.Data;
@@ -32,6 +33,21 @@ namespace EmailRules.GraphQL
         }
 
         [UseDbContext(typeof(AppDbContext))]
+        public async Task<DeleteRulePayload> DeleteRuleAsync(DeleteRuleInput input, [ScopedService] AppDbContext context,
+         CancellationToken cancellationToken)
+        {
+            var itemToRemove = context.Rules.SingleOrDefault(x => x.Id == input.RuleId);
+
+            if (itemToRemove != null) {
+                context.Rules.Remove(itemToRemove);
+                int rowsChanged = await context.SaveChangesAsync(cancellationToken);
+                return new DeleteRulePayload(itemToRemove.Id);
+            }
+
+            return null;
+        }
+
+        [UseDbContext(typeof(AppDbContext))]
         public async Task<AddConditionPayload> AddConditionAsync(AddConditionInput input, [ScopedService] AppDbContext context,
         CancellationToken cancellationToken)
         {
@@ -46,6 +62,21 @@ namespace EmailRules.GraphQL
             await context.SaveChangesAsync(cancellationToken);
 
             return new AddConditionPayload(condition);
+        }
+
+        [UseDbContext(typeof(AppDbContext))]
+        public async Task<DeleteConditionPayload> DeleteConditionAsync(DeleteConditionInput input, [ScopedService] AppDbContext context,
+         CancellationToken cancellationToken)
+        {
+            var itemToRemove = context.Conditions.SingleOrDefault(x => x.Id == input.ConditionId);
+
+            if (itemToRemove != null) {
+                context.Conditions.Remove(itemToRemove);
+                int rowsChanged = await context.SaveChangesAsync(cancellationToken);
+                return new DeleteConditionPayload(itemToRemove.Id);
+            }
+
+            return null;
         }
 
         [UseDbContext(typeof(AppDbContext))]
@@ -64,6 +95,21 @@ namespace EmailRules.GraphQL
             await context.SaveChangesAsync(cancellationToken);
 
             return new AddActionPayload(action);
+        }
+
+        [UseDbContext(typeof(AppDbContext))]
+        public async Task<DeleteActionPayload> DeleteActionAsync(DeleteActionInput input, [ScopedService] AppDbContext context,
+         CancellationToken cancellationToken)
+        {
+            var itemToRemove = context.Actions.SingleOrDefault(x => x.Id == input.ActionId);
+
+            if (itemToRemove != null) {
+                context.Actions.Remove(itemToRemove);
+                int rowsChanged = await context.SaveChangesAsync(cancellationToken);
+                return new DeleteActionPayload(itemToRemove.Id);
+            }
+
+            return null;
         }
     }
 }
